@@ -12,7 +12,7 @@ class Profile(models.Model):
     created_on = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name}'s Profile" 
+        return f"{self.user.username}'s Profile" 
 
     def get_absolute_url(self):
-        return reverse('profiles:profile', kwargs={'user_id': user.id})
+        return reverse('profiles:profile', kwargs={'user_id': self.user.id})
