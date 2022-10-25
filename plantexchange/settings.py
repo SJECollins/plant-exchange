@@ -48,6 +48,11 @@ INSTALLED_APPS = [
     # crispy forms
     'crispy_forms',
     'crispy_bootstrap5',
+
+    # apps
+    'profiles',
+    'plants',
+    
 ]
 
 MIDDLEWARE = [
@@ -111,6 +116,9 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
+CSRF_TRUSTED_ORIGINS=['https://8000-sjecollins-plantexchang-5sm87tlno19.ws-eu72.gitpod.io']
+
+CSRF_COOKIE_SECURE=False
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
