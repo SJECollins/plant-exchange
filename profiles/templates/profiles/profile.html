@@ -8,15 +8,20 @@
 
 <section class="container-fluid">
     <div class="col">
-        {% if not user %}
-        You haven't set up your profile yet.
-        Click here to add some details!
-        {%  %}
-        <p>{{ user.name }}</p>
-        <p>{{ user.description}}</p>
+        {% for profile in profile %}
+        <p>{{ profile.name }}</p>
+        <p>{{ profile.location }}</p>
+        <p>{{ profile.description }}</p>
+        {% empty %}
+        <p>You haven't set up your profile yet!</p>
+        <p>Create your profile!</p>
+        <a href="{% url 'profiles:create_profile' %}">Create Your Profile</a>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </form>
+        {% endfor %}
     </div>
-
-
 </section>
 
 
