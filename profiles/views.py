@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
+from django.http import HttpResponseRedirect
 from django.views import View, generic
 from django.views.generic.edit import CreateView, UpdateView
 from plants.models import Plant
@@ -53,7 +54,6 @@ class MessageCreate(CreateView):
 
 class MessageView(View):
     def get(self, request, msg_id, *args, **kwargs):
-        queryset = Plant.objects.filter(id=msg_id.ad.id)
         message = get_object_or_404(Message, id=msg_id)
         template_name = 'profiles/message.html'
         context = {
@@ -61,24 +61,24 @@ class MessageView(View):
             'message_form': MessageForm(),
         }
 
+        return render(request, template_name, context)
+
     def post(self, request, msg_id, *args, **kwargs):
-        queryset = Plant.objects.filter(id=msg_id.ad.id)
         message = get_object_or_404(Message, id=msg_id)
+        # ad = message.ad
         template_name = 'profiles/message.html'
         context = {
             'message': message,
             'message_form': MessageForm(),
         }
-        success_url = '/profiles/profile/'
         message_form = MessageForm(data=request.POST)
 
         if message_form.is_valid():
             message_form.instance.sender = request.user
             message_form = message_form.save(commit=False)
-            message_form.instance.ad = message.ad
-            message_form.instance.receiver = message.receiver
-            commit.save()
+            message_form.ad = message.ad
+            message_form.owner = message.sender
+            message_form.save()
+            return HttpResponseRedirect('/profiles/mailbox/')
 
         return render(request, template_name, context)
-
-

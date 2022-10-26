@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-Message from 
+Message from {{ message.sender }}
 {% endblock title %}
 
 {% block content %}
@@ -25,7 +25,7 @@ Message from
         <div>
             <form method="POST">
                 {% csrf_token %}
-                {{ form|crispy }}
+                {{ message_form|crispy }}
                 <button type="submit">Send</button>
             </form>
         </div>
