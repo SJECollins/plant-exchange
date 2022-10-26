@@ -17,6 +17,7 @@
         <p>Reliability: {{ profile.rating }}</p>
         <a href="{% url 'profiles:edit_profile' pk=profile.id %}">Update Your Profile</a>
     </div>
+    <a href="{% url 'profiles:mailbox'%}">Mailbox</a>
 </section>
 
 <!-- What to do if user hasn't created their profile yet! Maybe redirect to the create profile view when first logged in? -->

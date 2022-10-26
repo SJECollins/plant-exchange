@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+{{ plant.title }}
+{% endblock title %}
+
+{% block content %}
+<section class="container-fluid">
+    <div class="col-12">
+        <div class="card">
+            <div>
+                <h2>{{ plant.title }}</h2>
+            </div>
+            <div class="image-container">
+                {% if "placeholder" in plant.image.url %}
+                <img class="card-img-top" src="{% static 'images/monstleaf.webp' %}">
+                <p>No image available</p>
+                {% else %}
+                <img class="card-img-top" src="{{ plant.image.url }}">
+                {% endif %}
+            </div>
+            <div>
+                <p>Added by {{ plant.owner }} on {{ plant.added_on }}</p>
+                {% if plant.status == 0 %}
+                <p>Available</p>
+                {% else %}
+                <p>Taken</p>
+                {% endif %}
+            </div>
+            <div>
+                <p><strong>Description:</strong></p>
+                <p>{{ plant.description }}</p>
+            </div>
+            <div>
+                <p><strong>{{ plant.owner }} would like to trade for:</strong></p>
+                <p>{{ plant.will_trade_for }}</p>
+            </div>
+            <div>
+                <small>Last updated: {{ plant.updated_on }}</small>
+            </div>
+            <div>
+                <a href="{% url 'profiles:new_message' plant_id=plant.id %}">Message {{ profile.owner }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-8">
+                {% for comment in comments %}
+                <div>
+                    <p>{{ comment.name }} posted:</p>
+                    <p>{{ comment.body }}</p>
+                    <small>on {{ comment.added_on }}</small>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-8">
+                <p>Leave a comment:</p>
+                {% if user.is_authenticated %}
+                <p>Posting as {{ user.username }}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ comment_form|crispy  }}
+                    <button type="submit">Post</button>
+                </form>
+                {% else %}
+                <p>You must be signed in to comment</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock content %}

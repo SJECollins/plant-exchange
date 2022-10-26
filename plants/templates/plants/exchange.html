@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Plants
+{% endblock title %}
+
+{% block content %}
+
+<section class="container-fluid">
+    <div class="col-12">
+        <h1>The Exchange</h1>
+        <a href="{% url 'plants:add_plant' %}">Post a plant</a>
+        <div class="row">
+            {% for plant in plant_list %}
+            <div class="col-md-4">
+                <div>
+                    <h2>{{ plant.title }}</h2>
+                    <p>{{ plant.owner }} added on {{ plant.added_on|date:"d m y" }}</p>
+                </div>
+                <div class="image-container">
+                    {% if "placeholder" in plant.image.url %}
+                    <img class="card-img-top" src="{% static 'images/monstleaf.webp' %}">
+                    <p>No image available</p>
+                    {% else %}
+                    <img class="card-img-top" src="{{ plant.image.url }}">
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="{% url 'plants:plant_detail' plant_id=plant.id %}">View Plant</a>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+
+    <div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number" class="page-link">&laquo; PREV</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number" class="page-link">NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</section>
+
+{% endblock content %}

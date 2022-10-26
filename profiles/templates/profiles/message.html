@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Message from 
+{% endblock title %}
+
+{% block content %}
+
+<section class="container-fluid">
+    <div class="col-12">
+        <div class="card">
+            <div class="msg-subject">
+                <p>{{ message }}</p>
+            </div>
+            <div>
+                <p>{{ message.content }}</p>
+            </div>
+            <div>
+                <p>Sent by {{ message.sender }} on {{ message.created_on }}</p>
+            </div>
+        </div>
+        <div class="card">
+            <p><strong>Reply</strong></p>
+        </div>
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+{% endblock content %}
