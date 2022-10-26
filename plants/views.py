@@ -6,3 +6,7 @@ class IndexView(View):
     def get(self, request):
         template_name = 'plants/index.html'
         return render(request, template_name)
+
+
+class PlantList(ListView):
+    

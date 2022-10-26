@@ -16,15 +16,6 @@
         <!-- Ratings based on avg num of ratings for users which are submitted when users are have received a plant? -->
         <p>Reliability: {{ profile.rating }}</p>
         <a href="{% url 'profiles:edit_profile' pk=profile.id %}">Update Your Profile</a>
-        {% if profile.name == null %}
-        <p>You haven't set up your profile yet!</p>
-        <p>Create your profile!</p>
-        <a href="{% url 'profiles:create_profile' %}">Create Your Profile</a>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-        {% endif %}
-        </form>
     </div>
 </section>
 

@@ -13,18 +13,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Exchange</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profiles:profile' user_id=request.user.id %}">My Profile</a>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Profile / Logout
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Home</a></li>
-              <li><a class="dropdown-item" href="#">Exhange</a></li>
-              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'profiles:profile' user_id=request.user.id %}">My Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
             </ul>
           </li>
           {% else %}
@@ -34,22 +29,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Exchange</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Signup</a>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Login / Register
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Home</a></li>
-              <li><a class="dropdown-item" href="#">Exhange</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Login</a></li>
-              <li><a class="dropdown-item" href="#">Signup</a></li>
+              <li><a class="dropdown-item" href="{% url 'account_login' %}">Login</a></li>
+              <li><a class="dropdown-item" href="{% url 'account_signup' %}">Signup</a></li>
             </ul>
           </li>
           {% endif %}

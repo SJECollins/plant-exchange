@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
@@ -16,3 +18,9 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse('profiles:profile', kwargs={'user_id': self.user.id})
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
