@@ -9,13 +9,13 @@ Your Messages
 <section class="container-fluid">
     <div class="col-12">
         <h1>Inbox</h1>
-        {% for message in message_list %}
+        {% for message in messages %}
         <div class="card">
             <div class="msg-subject">
                 <p>{{ message }}</p>
             </div>
             <div>
-                <a href="">Read</a>
+                <a href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
             </div>
         </div>
         {% empty %}

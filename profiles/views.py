@@ -36,20 +36,24 @@ class MessageCreate(CreateView):
     template_name = 'profiles/new_message.html'
     success_url = '/exchange/'
 
+    def get_context_data(self, **kwargs):
+        context = super(MessageCreate, self).get_context_data(**kwargs)
+        context['plant_id'] = self.kwargs['plant_id']
+        return context
+
     def form_valid(self, form):
-        try:
-            ad = Plant.objects.get(id=self.kwargs['plant_id'])
-        except Plant.DoesNotExist:
-            pass
-        form.instance.ad = ad
-        form.instance.receiver = ad.owner
         form.instance.sender = self.request.user
-        return super().form_valid(form)
+        form.instance.ad = Plant.objects.get(id=self.kwargs['plant_id'])
+        form.instance.owner = form.instance.ad.owner
+        context = {
+            'plant_id': self.kwargs['plant_id']
+        }
+        return super(MessageCreate, self).form_valid(form)
 
 
 class MessageView(View):
     def get(self, request, msg_id, *args, **kwargs):
-        queryset = Plant.objects.filter(id=msg_id.ad)
+        queryset = Plant.objects.filter(id=msg_id.ad.id)
         message = get_object_or_404(Message, id=msg_id)
         template_name = 'profiles/message.html'
         context = {
@@ -58,7 +62,7 @@ class MessageView(View):
         }
 
     def post(self, request, msg_id, *args, **kwargs):
-        queryset = Plant.objects.filter(id=msg_id.ad)
+        queryset = Plant.objects.filter(id=msg_id.ad.id)
         message = get_object_or_404(Message, id=msg_id)
         template_name = 'profiles/message.html'
         context = {
