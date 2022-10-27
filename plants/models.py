@@ -18,7 +18,7 @@ class Category(models.Model):
 
 class Plant(models.Model):
     title = models.CharField(max_length=40)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='plants')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default='none')
     description = models.TextField()
     image = CloudinaryField('image', null=True, blank=True, default='placeholder')

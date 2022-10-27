@@ -7,7 +7,7 @@
 {% block content %}
 
 <section class="container-fluid">
-    <div class="col">
+    <div class="col-12">
         <p>Name {{ profile.name }}</p>
         <p>Location: {{ profile.location }}</p>
         <p>About {{profile.name}}: {{ profile.about_me }}</p>
@@ -15,9 +15,22 @@
         <p>User since: {{ profile.created_on }}</p>
         <!-- Ratings based on avg num of ratings for users which are submitted when users are have received a plant? -->
         <p>Reliability: {{ profile.rating }}</p>
+        {% if profile.user == request.user %}
         <a href="{% url 'profiles:edit_profile' pk=profile.id %}">Update Your Profile</a>
+        {% endif %}
     </div>
     <a href="{% url 'profiles:mailbox'%}">Mailbox</a>
+</section>
+<section class="container-fluid">
+    <div class="col-12">
+        <h1>{{ profile }}'s Plants</h1>
+        {% for plant in plants %}
+        <a href="{% url 'plants:plant_detail' plant_id=plant.id }">{{ plant }}</a>
+        <p>Posted on {{ plant.added_on }}</p>
+        {% empty %}
+        No plants!
+        {% endfor %}
+    </div>
 </section>
 
 <!-- What to do if user hasn't created their profile yet! Maybe redirect to the create profile view when first logged in? -->

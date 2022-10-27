@@ -7,6 +7,7 @@ Message from {{ message.sender }}
 {% block content %}
 
 <section class="container-fluid">
+    <a href="{% url 'profiles:mailbox' %}">Back to mailbox</a>
     <div class="col-12">
         <div class="card">
             <div class="msg-subject">

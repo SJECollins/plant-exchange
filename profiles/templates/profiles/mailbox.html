@@ -10,30 +10,42 @@ Your Messages
     <div class="col-12">
         <h1>Inbox</h1>
         {% for message in messages %}
-        <div class="card">
-            <div class="msg-subject">
-                <p>{{ message }}</p>
+            {% if message.receiver == request.user %}
+            <div class="card">
+                <div class="msg-subject">
+                    <p>{{ message }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
+                </div>
+                {% if not message.read %}
+                <div>
+                    <p>Unread</p>
+                </div>
+                {% endif %}
+                {% if message.replied %}
+                <div>
+                    <p>Replied</p>
+                </div>
+                {% endif %}
             </div>
-            <div>
-                <a href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
+            {% endif %}
+        {% endfor %}     
+        <h1>Sent</h1>       
+        {% for message in messages %}
+            {% if message.sender == request.user %}
+            <div class="card">
+                <div class="msg-subject">
+                    <p>Message to {{ message.receiver }} about {{ message.ad }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
+                </div>
             </div>
-        </div>
-        {% empty %}
-        <p>You have no messages!</p>
+            {% endif %}
         {% endfor %}
     </div>
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number" class="page-link">&laquo; PREV</a></li>
-            {% endif %}
-            {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number" class="page-link">NEXT &raquo;</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
+
 </section>
 
 {% endblock content %}

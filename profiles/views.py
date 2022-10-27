@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from django.views import View, generic
 from django.views.generic.edit import CreateView, UpdateView
+from django.db.models import Q
 from plants.models import Plant
 from .models import Profile, Message
 from .forms import MessageForm
@@ -10,8 +11,12 @@ from .forms import MessageForm
 class ProfileView(View):
     def get(self, request, user_id):
         profile = get_object_or_404(Profile, user=user_id)
+        plants = Plant.objects.filter(owner=user_id).order_by('-added_on')
         template_name = 'profiles/profile.html'
-        context = {'profile': profile}
+        context = {
+            'profile': profile,
+            'plants': plants,
+            }
         return render(request, template_name, context)
 
 
@@ -28,7 +33,7 @@ class MailboxList(generic.ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return Message.objects.filter(owner=self.request.user)
+        return Message.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user))
 
 
 class MessageCreate(CreateView):
@@ -45,7 +50,7 @@ class MessageCreate(CreateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         form.instance.ad = Plant.objects.get(id=self.kwargs['plant_id'])
-        form.instance.owner = form.instance.ad.owner
+        form.instance.receiver = form.instance.ad.owner
         context = {
             'plant_id': self.kwargs['plant_id']
         }
@@ -55,6 +60,10 @@ class MessageCreate(CreateView):
 class MessageView(View):
     def get(self, request, msg_id, *args, **kwargs):
         message = get_object_or_404(Message, id=msg_id)
+        user = self.request.user
+        if message.receiver == user:
+            message.read = True
+            message.save()
         template_name = 'profiles/message.html'
         context = {
             'message': message,
@@ -65,7 +74,9 @@ class MessageView(View):
 
     def post(self, request, msg_id, *args, **kwargs):
         message = get_object_or_404(Message, id=msg_id)
-        # ad = message.ad
+        if message.replied == False:
+            message.replied = True
+            message.save()
         template_name = 'profiles/message.html'
         context = {
             'message': message,
@@ -77,7 +88,7 @@ class MessageView(View):
             message_form.instance.sender = request.user
             message_form = message_form.save(commit=False)
             message_form.ad = message.ad
-            message_form.owner = message.sender
+            message_form.receiver = message.sender
             message_form.save()
             return HttpResponseRedirect('/profiles/mailbox/')
 

@@ -15,7 +15,7 @@ class Profile(models.Model):
     created_on = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username}'s Profile" 
+        return f"{self.name}" 
 
     def get_absolute_url(self):
         return reverse('profiles:profile', kwargs={'user_id': self.user.id})
@@ -30,12 +30,15 @@ def create_user_profile(sender, instance, created, **kwargs):
 class Message(models.Model):
     ad = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='ad')
     sender = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='none', related_name='sender')
-    owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='none', related_name='receiver')
+    receiver = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='none', related_name='receiver')
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+    replied = models.BooleanField(default=False)
+    trashed = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ['read', '-created_on']
 
     def __str__(self):
         return f'Message from {self.sender} about {self.ad}'
