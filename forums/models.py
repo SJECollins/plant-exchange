@@ -19,9 +19,11 @@ class Discussion(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='discussions')
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=80)
-    description = models.CharField(max_length=280)
+    content = models.CharField(max_length=280)
     image = CloudinaryField('image', null=True, blank=True)
     created_on = models.DateField(auto_now_add=True)
+    last_edited = models.DateTimeField(auto_now=True)
+    deleted = models.BooleanField(default=False)
     is_open = models.BooleanField(default=True)
 
     class Meta:
@@ -36,7 +38,9 @@ class Post(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     content = models.TextField()
     image = CloudinaryField('image', null=True, blank=True)
+    deleted = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
+    last_edited = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['created_on']

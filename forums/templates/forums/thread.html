@@ -13,7 +13,68 @@
 </section>
 <section class="container-fluid">
     <div class="col-12">
-        <!-- The actual discussion thread -->
+        <h1>{{ discussion.title }}</h1>
+        <div class="row">
+            <div class="col-4">
+                <p>{{ discussion.creator }}</p>
+                <p>Posted on:</p>
+                <p>{{ discussion.created_on }}</p>
+            </div>
+            <div class="col-8">
+                <p>{{ discussion.content }}</p>
+                <p>Image</p>
+            </div>
+            <div>
+                <p>Last edited: {{ discussion.last_edited }}</p>
+            </div>
+            {% if discussion.creator == request.user %}
+            <div>
+                <a href="">Edit Post</a>
+                <a href="">Delete Post</a>
+            </div>
+            {% endif %}
+        </div>
+        <!-- Paginated discussions -->
+        {% for post in page_obj %}
+        <div class="row">
+            <div class="col-4">
+                <p>{{ post.creator }}</p>
+                <p>Posted on:</p>
+                <p>{{ post.created_on }}</p>
+            </div>
+            <div class="col-8">
+                <p>{{ post.content }}</p>
+                <p>Image</p>
+            </div>
+            <div>
+                <p>Last edited: {{ post.last_edited }}</p>
+            </div>
+            {% if post.creator == request.user %}
+            <div>
+                <a href="">Edit Post</a>
+                <a href="">Delete Post</a>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
     </div>
 </section>
 <section class="container-fluid">

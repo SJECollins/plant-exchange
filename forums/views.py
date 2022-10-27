@@ -49,30 +49,37 @@ class TopicCreate(CreateView):
 
 class TopicEdit(UpdateView):
     model = Discussion
-    fields = ['title', 'description', 'image',]
+    fields = ['title', 'description', 'image', 'is_open',]
+    template_name = 'forums/new_thread.html'
     
     def get_success_url(self):
         topic_id = self.kwargs['topic_id']
         return reverse('/forums/view_topic/', kwargs={'topic_id': topic_id})
 
 
-class TopicDelete(DeleteView):
-    model = Discussion
+class TopicDelete(View):
+    def get(self, request, topic_id, *args, **kwargs):
+        discussion = get_object_or_404(Discussion, id=topic_id)
+        if discussion.creator == request.user:
+            discussion.deleted = True
+            discussion.save()
 
     def get_success_url(self):
-        topic_id = self.kwargs['topic_id']
-        topic = get_object_or_404(Discussion, topic_id)
-        return reverse('/forums/forum/', kwargs={'forum_id': topic.forum.id})
+        forum_id = discussion.forum.id
+        return reverse('/forums/forum/', kwargs={'forum_id': forum_id})
 
 
 class TopicView(View):
     def get(self, request, topic_id, *args, **kwargs):
         discussion = get_object_or_404(Discussion, id=topic_id)
         posts = discussion.posts.all()
+        paginator = Paginator(posts, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         template_name = 'forums/thread.html'
         context = {
             'discussion': discussion,
-            'posts': posts,
+            'page_obj': page_obj,
             'reply_form': PostForm(),
         }
 
@@ -88,3 +95,26 @@ class TopicView(View):
 
         return render(request, template_name, context)
 
+
+class ReplyEdit(UpdateView):
+    model = Post
+    fields = ['content', 'image',]
+    template_name = 'forums/edit_reply.html'
+
+    def get_success_url(self):
+        reply_id = self.kwargs['reply_id']
+        reply = get_object_or_404(Reply, id=reply_id)
+        topic = get_object_or_404(Discussion, id=reply.discussion)
+        return reverse('/forums/view_topic/', kwargs={'topic_id': topic.id})
+
+
+class ReplyDelete(View):
+    def get(self, request, reply_id, *args, **kwargs):
+        post = get_object_or_404(Post, id=reply_id)
+        if post.creator == request.user:
+            post.deleted = True
+            post.save()
+
+    def get_success_url(self):
+        topic_id = post.discussion.id
+        return reverse('/forums/view_topic/', kwargs={'topic_id': topic_id})
