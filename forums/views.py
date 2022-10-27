@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.core.paginator import Paginator
 from django.views import View, generic
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Max
 
 from .models import Forum, Discussion, Post
+from .forms import PostForm
 
 class ForumList(generic.ListView):
     model = Forum
@@ -44,3 +45,46 @@ class TopicCreate(CreateView):
         form.instance.forum = Forum.objects.get(id=self.kwargs['forum_id'])
         context = {'forum_id': self.kwargs['forum_id']}
         return super(TopicCreate, self).form_valid(form)
+
+
+class TopicEdit(UpdateView):
+    model = Discussion
+    fields = ['title', 'description', 'image',]
+    
+    def get_success_url(self):
+        topic_id = self.kwargs['topic_id']
+        return reverse('/forums/view_topic/', kwargs={'topic_id': topic_id})
+
+
+class TopicDelete(DeleteView):
+    model = Discussion
+
+    def get_success_url(self):
+        topic_id = self.kwargs['topic_id']
+        topic = get_object_or_404(Discussion, topic_id)
+        return reverse('/forums/forum/', kwargs={'forum_id': topic.forum.id})
+
+
+class TopicView(View):
+    def get(self, request, topic_id, *args, **kwargs):
+        discussion = get_object_or_404(Discussion, id=topic_id)
+        posts = discussion.posts.all()
+        template_name = 'forums/thread.html'
+        context = {
+            'discussion': discussion,
+            'posts': posts,
+            'reply_form': PostForm(),
+        }
+
+        post_form = PostForm(data=request.POST)
+
+        if post_form.is_valid():
+            post_form.instance.creator = request.user
+            post_form = post_form.save(commit=False)
+            post_form.discussion = discussion
+            post_form.save()
+        else:
+            post_form = PostForm()
+
+        return render(request, template_name, context)
+

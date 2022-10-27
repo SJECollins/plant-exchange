@@ -16,7 +16,7 @@
     <div class="col-12">
         <!-- Paginated discussions -->
         {% for discussion in page_obj %}
-        <a href="{% url 'forums:' %}" discussion.title }}
+        <a href="#"> {{ discussion.title }}</a>
         {% endfor %}
     <div class="pagination">
         <span class="step-links">
