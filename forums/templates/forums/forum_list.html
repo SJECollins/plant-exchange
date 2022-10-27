@@ -13,7 +13,19 @@ Plant Forums
 </section>
 <section class="container-fluid">
     <div class="col-12">
-        <!-- The list of forums -->
+        {% for forum in forum_list %}
+            {% if forum.title == 'General Discussion' %}
+            <div class="col-10">
+                <a href="{% url 'forums:forum' forum_id=forum.id %}">{{ forum.title }}</a>
+                <p>{{ forum.description }}</p>       
+            </div>
+            {% else %}
+        <div class="col-10">
+            <a href="{% url 'forums:forum' forum_id=forum.id %}">{{ forum.title }}</a>
+            <p>{{ forum.description }}</p>          
+        </div>
+        {% endif %}
+        {% endfor %}
     </div>
 </section>
 <section class="container-fluid">

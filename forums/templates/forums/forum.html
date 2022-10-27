@@ -16,9 +16,8 @@
     <div class="col-12">
         <!-- Paginated discussions -->
         {% for discussion in page_obj %}
-        {{ discussion.title }}<br>
+        <a href="{% url 'forums:' %}" discussion.title }}
         {% endfor %}
-    
     <div class="pagination">
         <span class="step-links">
             {% if page_obj.has_previous %}
@@ -41,6 +40,7 @@
 <section class="container-fluid">
     <div class="col-12">
         <!-- Below discussion - maybe has the new discussion button?? -->
+        <a href="{% url 'forums:new_topic' forum_id=forum.id %}">New Discussion</a>
     </div>
 </section>
 
