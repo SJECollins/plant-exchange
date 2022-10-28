@@ -14,7 +14,7 @@ Message from {{ message.sender }}
                 <p>{{ message }}</p>
             </div>
             <div>
-                <p>{{ message.content }}</p>
+                <p>{{ message.content|linebreaks }}</p>
             </div>
             <div>
                 <p>Sent by {{ message.sender }} on {{ message.created_on }}</p>

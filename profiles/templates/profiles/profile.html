@@ -10,8 +10,8 @@
     <div class="col-12">
         <p>Name {{ profile.name }}</p>
         <p>Location: {{ profile.location }}</p>
-        <p>About {{profile.name}}: {{ profile.about_me }}</p>
-        <p>Interests: {{ profile.interested_in }}</p>
+        <p>About {{profile.name}}: {{ profile.about_me|linebreaks }}</p>
+        <p>Interests: {{ profile.interested_in|linebreaks }}</p>
         <p>User since: {{ profile.created_on }}</p>
         <!-- Ratings based on avg num of ratings for users which are submitted when users are have received a plant? -->
         <p>Reliability: {{ profile.rating }}</p>

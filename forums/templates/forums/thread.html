@@ -26,7 +26,7 @@
                 {% if discussion.deleted %}
                 <p><em>Content deleted by user.</em></p>
                 {% else %}
-                <p>{{ discussion.content }}</p>
+                <p>{{ discussion.content|linebreaks }}</p>
                 <p>Image</p>
                 {% endif %}
             </div>
@@ -52,7 +52,7 @@
                 {% if post.deleted %}
                 <p><em>Content deleted by user.</em></p>
                 {% else %}
-                <p>{{ post.content }}</p>
+                <p>{{ post.content|linebreaks }}</p>
                 <p>Image</p>
                 {% endif %}
             </div>

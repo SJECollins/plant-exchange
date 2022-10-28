@@ -57,13 +57,20 @@ body {
     font-size: 0.75em;
 }
 
+.status {
+    padding: 0.5em 0;
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
 .available {
     color: var(--site-med-green);
-    font-weight: 900;
+    border: 2px dotted var(--site-light-green);
 }
 
 .taken {
     color: var(--site-med-brown);
+    border: 2px dotted var(--site-light-brown);
 }
 
 /* Link & Button Styling */
@@ -127,9 +134,8 @@ a {
     cursor: pointer;
     display: inline-block;
     padding: 0.25rem 0.5rem;
-    color: var(--site-beige);
+    color: var(--site-white);
     background-color: var(--site-dark-brown);
-    /* box-shadow: 0 4px 8px 0 var(--site-light-green); */
     font-weight: 800;
     margin: 1em;
     border-radius: 4px;
@@ -138,7 +144,7 @@ a {
 
 .plnt-btn:hover, .plnt-btn:active {
     box-shadow: inset 200px 0 0 0 var(--site-dark-green), 0 4px 8px 0 var(--site-light-brown);
-    color: var(--site-white);
+    color: var(--site-whiter);
 }
 
 /* Spacing */
@@ -146,7 +152,7 @@ a {
 /* Image styling */
 
 .pics {
-    max-width: 400px;
+    max-width: 360px;
     width: 100%;
     height: auto;
     border-radius: 8px;
@@ -167,6 +173,7 @@ a {
 
 .plant-card {
     padding: 1em;
+    margin-bottom: 1em;
     border: 2px solid var(--site-dark-brown);
     border-radius: 10px;
     background-color: var(--site-whiter);

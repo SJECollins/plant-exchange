@@ -11,19 +11,24 @@
 <section class="container-fluid">
     <div class="col-12">
         <div class="plant-card">
-            <div>
-                <h2 class="headings headings-big">{{ plant.title }}</h2>
-                <p class="little">Added by <a class="plnt-links" href="{% url 'profiles:profile' user_id=plant.owner.id %}">{{ plant.owner }}</a> on {{ plant.added_on }}</p>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h2 class="headings headings-big">{{ plant.title }}</h2>
+                    <p class="little">Added by <a class="plnt-links" href="{% url 'profiles:profile' user_id=plant.owner.id %}">{{ plant.owner }}</a> on {{ plant.added_on }}</p>
+                    {% if plant.status == 0 %}
+                    <p class="status available text-center">Available</p>
+                    {% else %}
+                    <p class="status taken text-center">Taken</p>
+                    {% endif %}
+                </div>
+                <div>
+                {% if plant.owner == request.user %}
+                <a class="plnt-btn" href="{% url 'plants:edit_plant' pk=plant.id %}">Edit</a>
+                {% endif %}
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 d-flex flex-column justify-content-evenly">
-                    <div>
-                        {% if plant.status == 0 %}
-                        <p class="available">Available</p>
-                        {% else %}
-                        <p class="taken">Taken</p>
-                        {% endif %}
-                    </div>
                     <div>
                         <p><strong>Description:</strong></p>
                         <p>{{ plant.description }}</p>
@@ -33,11 +38,11 @@
                         <p>{{ plant.will_trade_for }}</p>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex flex-column align-items-center">
                     <div class="image-container">
                         {% if "placeholder" in plant.image.url %}
                         <img class="card-img-top pics" src="{% static 'images/monstleaf.webp' %}">
-                        <p>No image available</p>
+                        <p class="text-center">No image available</p>
                         {% else %}
                         <img class="card-img-top pics" src="{{ plant.image.url }}">
                         {% endif %}
@@ -52,23 +57,29 @@
     </div>
     <div class="col-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8">
                 {% for comment in comments %}
-                <div>
-                    <p>{{ comment.name }} posted:</p>
-                    <p>{{ comment.body }}</p>
-                    <small>on {{ comment.added_on }}</small>
+                <div class="plant-card">
+                    <p><a class="plnt-links" href="{% url 'profiles:profile' user_id=comment.name.id %}">{{ comment.name }}</a> posted:</p>
+                    <hr>
+                    <p>{{ comment.body|linebreaks }}</p>
+                    <hr>
+                    <p class="little float-end">on {{ comment.added_on|date:'d M Y' }}</p>
                 </div>
                 {% endfor %}
             </div>
-            <div class="col-md-8">
+            <div class="col-sm-4">
                 <p>Leave a comment:</p>
                 {% if user.is_authenticated %}
-                <p>Posting as {{ user.username }}</p>
                 <form method="POST">
                     {% csrf_token %}
-                    {{ comment_form|crispy }}
-                    <button type="submit">Post</button>
+                    <div class="form-col">
+                        <div class="form-group col-sm-10 mx-auto mb-0">
+                            {{ comment_form.body|linebreaks }}
+                        </div>
+                    </div>
+                    <p class="little text-center">Posting as {{ user.username }}</p>
+                    <button class="plnt-btn float-end" type="submit">Post</button>
                 </form>
                 {% else %}
                 <p>You must be signed in to comment</p>

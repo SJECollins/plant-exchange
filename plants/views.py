@@ -29,6 +29,18 @@ class AddPlant(CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('plants:plant_detail', args=(self.object.id,))
+
+
+class PlantUpdate(UpdateView):
+    model = Plant
+    fields = ['title', 'category', 'description', 'will_trade_for', 'image', 'status',]
+    template_name = 'plants/edit_plant.html'
+
+    def get_success_url(self):
+        return reverse('plants:plant_detail', args=(self.object.id,))
+
 
 class PlantDetail(View):
     def get(self, request, plant_id, *args, **kwargs):

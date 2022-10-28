@@ -10,12 +10,12 @@ Post Plant
 <div class="container-fluid">
     <div class="col-8 mx-auto">
         <div class="d-flex justify-content-between">
-            <div>
-                <h1 class="headings headings-big">Post A Plant</h1>
-                <p>Add your plant's details below.</p>
+            <div class="col-8">
+                <h1 class="headings headings-big">Edit Plant</h1>
+                <p>Update your plant's details below. Don't forget to mark it was taken if you've agreed a trade!</p>
             </div>
-            <div>
-                <a class="plnt-btn" href="{% url 'plants:exchange' %}">Back to Exchange</a>
+            <div class="col-4">
+                <a class="plnt-btn float-end" href="{% url 'plants:exchange' %}">Back to Exchange</a>
             </div>
         </div>
         <div class="col-sm-10 mx-auto">
@@ -44,6 +44,9 @@ Post Plant
                 <div class="form-group col-sm-6 mx-auto">
                 {{ form.image|as_crispy_field }}
                 </div>
+                <div class="form-group col-sm-6 mx-auto">
+                    {{ form.status|as_crispy_field }}
+                </div>
             <button class="plnt-btn float-end" type="submit">Post</button>
         </form>
         </div>
@@ -52,3 +55,4 @@ Post Plant
 
 
 {% endblock content %}
+                

@@ -20,7 +20,7 @@ class Discussion(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='discussions')
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=80)
-    content = RichTextField()
+    content = models.TextField()
     image = CloudinaryField('image', null=True, blank=True)
     created_on = models.DateField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
@@ -37,7 +37,7 @@ class Discussion(models.Model):
 class Post(models.Model):
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name='posts')
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    content = RichTextField()
+    content = models.TextField()
     image = CloudinaryField('image', null=True, blank=True)
     deleted = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)

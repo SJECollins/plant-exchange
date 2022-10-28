@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from cloudinary.models import CloudinaryField
-from ckeditor.fields import RichTextField
 from plants.models import Plant
 
 
@@ -12,7 +11,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=20, null=True, blank=True)
     location = models.CharField(max_length=40, null=True, blank=True, default='Private')
-    about_me = models.CharField(max_length=140, null=True, blank=True)
+    about_me = models.TextField(null=True, blank=True)
     interested_in = models.CharField(max_length=140, null=True, blank=True)
     profile_image = CloudinaryField('image', null=True, blank=True, default='profile_pic')
     created_on = models.DateField(auto_now_add=True)
@@ -34,7 +33,7 @@ class Message(models.Model):
     ad = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='ad')
     sender = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='none', related_name='sender')
     receiver = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='none', related_name='receiver')
-    content = RichTextField()
+    content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
     replied = models.BooleanField(default=False)
