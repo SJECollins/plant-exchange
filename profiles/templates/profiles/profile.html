@@ -27,7 +27,7 @@
     <div class="col-12">
         <h1>{{ profile }}'s Plants</h1>
         {% for plant in plants %}
-        <a href="{% url 'plants:plant_detail' plant_id=plant.id }">{{ plant }}</a>
+        <a href="{% url 'plants:plant_detail' plant_id=plant.id %}">{{ plant }}</a>
         <p>Posted on {{ plant.added_on }}</p>
         {% empty %}
         No plants!

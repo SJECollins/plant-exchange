@@ -3,6 +3,7 @@
 :root {
     --site-black: #191a19;
     --site-white: #d8ddc4;
+    --site-whiter: #eaefd5;
     --site-beige: #c3caa4;
     --site-dark-brown: #6c460e;
     --site-med-brown: #996314;
@@ -47,13 +48,22 @@ body {
 .edited {
     font-family: 'Josefin Sans', sans-serif;
     font-style: italic;
-    font-size: 0.5em;
+    font-size: 1em;
 }
 
 .deleted {
     font-family: 'Electrolize', sans-serif;
     font-style: italic;
     font-size: 0.75em;
+}
+
+.available {
+    color: var(--site-med-green);
+    font-weight: 900;
+}
+
+.taken {
+    color: var(--site-med-brown);
 }
 
 /* Link & Button Styling */
@@ -113,6 +123,24 @@ a {
     border-bottom: 2px solid var(--site-med-brown);
 }
 
+.plnt-btn {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    color: var(--site-beige);
+    background-color: var(--site-dark-brown);
+    /* box-shadow: 0 4px 8px 0 var(--site-light-green); */
+    font-weight: 800;
+    margin: 1em;
+    border-radius: 4px;
+    transition: color .4s linear, box-shadow .6s linear;
+}
+
+.plnt-btn:hover, .plnt-btn:active {
+    box-shadow: inset 200px 0 0 0 var(--site-dark-green), 0 4px 8px 0 var(--site-light-brown);
+    color: var(--site-white);
+}
+
 /* Spacing */
 
 /* Image styling */
@@ -141,6 +169,8 @@ a {
     padding: 1em;
     border: 2px solid var(--site-dark-brown);
     border-radius: 10px;
+    background-color: var(--site-whiter);
+    box-shadow: 0 2px 4px 0 var(--site-light-brown);
 }
 
 

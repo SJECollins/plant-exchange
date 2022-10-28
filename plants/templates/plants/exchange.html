@@ -8,9 +8,14 @@ Plants
 
 <section class="container-fluid">
     <div class="col-12">
-        <div class="row">
-            <h1 class="headings headings-big">The Exchange</h1>
-            <a class="plnt-lnks" href="{% url 'plants:add_plant' %}">Post a plant</a>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h1 class="headings headings-big">The Exchange</h1>
+                <p>Browse plants looking for a new home or post your own.</p>
+            </div>
+            <div>
+                <a class="plnt-btn" href="{% url 'plants:add_plant' %}">Post a plant</a>
+            </div>
         </div>
         <div class="row">
             {% for plant in plant_list %}
@@ -18,7 +23,8 @@ Plants
                 <div class="plant-card">
                     <div>
                         <h2 class="headings headings-sm">{{ plant.title }}</h2>
-                        <p>From: <a class="plnt-links" href="{% url 'profiles:profile' user_id=plant.owner.id %}">{{ plant.owner }}</a></p>
+                        <p>From: <a class="plnt-links" href="{% url 'profiles:profile' user_id=plant.owner.id %}">
+                            {{ plant.owner }}</a></p>
                     </div>
                     <div class="image-container">
                         {% if "placeholder" in plant.image.url %}
