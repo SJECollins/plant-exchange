@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 {{ discussion.title }}
 {% endblock title %}
@@ -21,16 +23,20 @@
                 <p>{{ discussion.created_on }}</p>
             </div>
             <div class="col-8">
+                {% if discussion.deleted %}
+                <p><em>Content deleted by user.</em></p>
+                {% else %}
                 <p>{{ discussion.content }}</p>
                 <p>Image</p>
+                {% endif %}
             </div>
             <div>
                 <p>Last edited: {{ discussion.last_edited }}</p>
             </div>
-            {% if discussion.creator == request.user %}
+            {% if discussion.creator == request.user and not discussion.deleted %}
             <div>
-                <a href="">Edit Post</a>
-                <a href="">Delete Post</a>
+                <a href="{% url 'forums:edit_topic' pk=discussion.id %}">Edit Post</a>
+                <a href="{% url 'forums:delete_topic' topic_id=discussion.id %}">Delete Post</a>
             </div>
             {% endif %}
         </div>
@@ -43,16 +49,22 @@
                 <p>{{ post.created_on }}</p>
             </div>
             <div class="col-8">
+                {% if post.deleted %}
+                <p><em>Content deleted by user.</em></p>
+                {% else %}
                 <p>{{ post.content }}</p>
                 <p>Image</p>
+                {% endif %}
             </div>
             <div>
                 <p>Last edited: {{ post.last_edited }}</p>
             </div>
             {% if post.creator == request.user %}
             <div>
-                <a href="">Edit Post</a>
-                <a href="">Delete Post</a>
+                {% if not post.deleted %}
+                <a href="{% url 'forums:edit_reply' pk=post.id %}">Edit Post</a>
+                <a href="{% url 'forums:delete_reply' reply_id=post.id %}">Delete Post</a>
+                {% endif %}
             </div>
             {% endif %}
         </div>
@@ -74,12 +86,16 @@
                 {% endif %}
             </span>
         </div>
-
     </div>
 </section>
 <section class="container-fluid">
     <div class="col-12">
-        <!-- Below discussion - holds the reply button? -->
+        <h2>Reply</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ post_form|crispy }}
+            <button type="submit">Post Reply</button>
+        </form>
     </div>
 </section>
 
