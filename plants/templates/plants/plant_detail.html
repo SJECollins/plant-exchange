@@ -2,6 +2,7 @@
 
 {% load crispy_forms_tags %}
 {% load static %}
+{% load cloudinary %}
 
 {% block title %}
 {{ plant.title }}
@@ -75,7 +76,7 @@
                     {% csrf_token %}
                     <div class="form-col">
                         <div class="form-group col-sm-10 mx-auto mb-0">
-                            {{ comment_form.body|linebreaks }}
+                            {{ comment_form.body }}
                         </div>
                     </div>
                     <p class="little text-center">Posting as {{ user.username }}</p>

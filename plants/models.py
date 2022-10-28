@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import cloudinary
 
 
 STATUS = ((0, 'Available'), (1, 'Taken'))
@@ -32,6 +35,11 @@ class Plant(models.Model):
 
     def __str__(self):
         return self.title
+
+
+@receiver(pre_delete, sender=Plant)
+def photo_delete(sender, instance, **kwargs):
+    cloudinary.uploader.destroy(instance.image.public_id)
 
 
 class Comment(models.Model):

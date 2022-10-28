@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 if os.path.isfile('env.py'):
     import env
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +53,9 @@ INSTALLED_APPS = [
     # crispy forms
     'crispy_forms',
     'crispy_bootstrap5',
+
+    # widget tweaks
+    'widget_tweaks',
 
     # apps
     'profiles',
@@ -169,6 +173,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+cloudinary.config(
+    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key = os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret = os.environ.get('CLOUDINARY_API_SECRET'),
+    secure = True,
+)
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'

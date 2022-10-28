@@ -9,14 +9,17 @@
 <section class="container-fluid">
     <div class="col-12">
         <!-- Header for the forum??  -->
-        {{ page_obj.count }} discussions in {{ forum.title }}
+        {{ page_obj|length }} discussions in {{ forum.title }}
     </div>
 </section>
 <section class="container-fluid">
     <div class="col-12">
         <!-- Paginated discussions -->
         {% for discussion in page_obj %}
-        <a href="{% url 'forums:view_topic' topic_id=discussion.id %}"> {{ discussion.title }}</a>
+        <div class="plant-card">
+            <a class="plnt-links" href="{% url 'forums:view_topic' topic_id=discussion.id %}">{{ discussion.title }}</a>
+            <p>{{ discussion.content }}</p>  
+        </div>
         {% endfor %}
     <div class="pagination">
         <span class="step-links">
@@ -40,7 +43,7 @@
 <section class="container-fluid">
     <div class="col-12">
         <!-- Below discussion - maybe has the new discussion button?? -->
-        <a href="{% url 'forums:new_topic' forum_id=forum.id %}">New Discussion</a>
+        <a class="plnt-btn" href="{% url 'forums:new_topic' forum_id=forum.id %}">New Discussion</a>
     </div>
 </section>
 

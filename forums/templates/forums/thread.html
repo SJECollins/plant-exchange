@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% load cloudinary %}
 
 {% block title %}
 {{ discussion.title }}
@@ -10,15 +13,15 @@
 
 <section class="container-fluid">
     <div class="col-12">
-        <!-- Header for the forum??  -->
+        <h1 class="headings headings-bg">{{ discussion.title }} in {{ discussion.forum }}</h1>
+        <a class="plnt-links" href="{% url 'forums:forum' forum_id=discussion.forum.id %}">Back to {{ discussion.forum.title }}</a>
     </div>
 </section>
 <section class="container-fluid">
     <div class="col-12">
-        <h1>{{ discussion.title }}</h1>
-        <div class="row">
+        <div class="row plant-card">
             <div class="col-4">
-                <p>{{ discussion.creator }}</p>
+                <p><a class="plnt-links" href="{% url 'profiles:profile' user_id=discussion.creator.id %}">{{ discussion.creator }}</a></p>
                 <p>Posted on:</p>
                 <p>{{ discussion.created_on }}</p>
             </div>
@@ -26,25 +29,29 @@
                 {% if discussion.deleted %}
                 <p><em>Content deleted by user.</em></p>
                 {% else %}
-                <p>{{ discussion.content|linebreaks }}</p>
-                <p>Image</p>
+                <p class="text-break">{{ discussion.content|linebreaks }}</p>
+                    {% if discussion.image %}
+                    <p>Image</p>
+                    {% endif %}
                 {% endif %}
             </div>
-            <div>
-                <p>Last edited: {{ discussion.last_edited }}</p>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column justify-content-end">
+                    <p class="little mb-0">Last edited: {{ discussion.last_edited }}</p>
+                </div>
+                {% if discussion.creator == request.user and not discussion.deleted %}
+                <div>
+                <a class="plnt-btn" href="{% url 'forums:edit_topic' pk=discussion.id %}">Edit Post</a>
+                <a class="plnt-btn" href="{% url 'forums:delete_topic' topic_id=discussion.id %}">Delete Post</a>
+                </div>
+                {% endif %}
             </div>
-            {% if discussion.creator == request.user and not discussion.deleted %}
-            <div>
-                <a href="{% url 'forums:edit_topic' pk=discussion.id %}">Edit Post</a>
-                <a href="{% url 'forums:delete_topic' topic_id=discussion.id %}">Delete Post</a>
-            </div>
-            {% endif %}
         </div>
         <!-- Paginated discussions -->
         {% for post in page_obj %}
-        <div class="row">
+        <div class="row plant-card mb-0">
             <div class="col-4">
-                <p>{{ post.creator }}</p>
+                <p><a class="plnt-links" href="{% url 'profiles:profile' user_id=post.creator.id %}">{{ post.creator }}</a></p>
                 <p>Posted on:</p>
                 <p>{{ post.created_on }}</p>
             </div>
@@ -52,28 +59,28 @@
                 {% if post.deleted %}
                 <p><em>Content deleted by user.</em></p>
                 {% else %}
-                <p>{{ post.content|linebreaks }}</p>
+                <p class="text-break">{{ post.content|linebreaks }}</p>
                 <p>Image</p>
                 {% endif %}
             </div>
-            <div>
-                <p>Last edited: {{ post.last_edited }}</p>
-            </div>
-            {% if post.creator == request.user %}
-            <div>
-                {% if not post.deleted %}
-                <a href="{% url 'forums:edit_reply' pk=post.id %}">Edit Post</a>
-                <a href="{% url 'forums:delete_reply' reply_id=post.id %}">Delete Post</a>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column justify-content-end">
+                    <p class="little mb-0">Last edited: {{ post.last_edited }}</p>
+                </div>
+                {% if post.creator == request.user and not post.deleted %}
+                <div>
+                    <a class="plnt-btn" href="{% url 'forums:edit_reply' pk=post.id %}">Edit Post</a>
+                    <a class="plnt-btn" href="{% url 'forums:delete_reply' reply_id=post.id %}">Delete Post</a>
+                </div>
                 {% endif %}
             </div>
-            {% endif %}
         </div>
         {% endfor %}
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a class="plnt-links" href="?page=1">&laquo; first</a>
+                    <a class="plnt-links" href="?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
         
                 <span class="current">
@@ -81,20 +88,22 @@
                 </span>
         
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    <a class="plnt-links" href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a class="plnt-links" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
             </span>
         </div>
     </div>
 </section>
 <section class="container-fluid">
-    <div class="col-12">
-        <h2>Reply</h2>
+    <div class="col-10 mx-auto">
+        <h2 class="headings headings-sm">Reply</h2>
         <form method="POST">
             {% csrf_token %}
-            {{ post_form|crispy }}
-            <button type="submit">Post Reply</button>
+            <div class="col-sm-12">
+                {{ post_form.content|add_class:"reply-box" }}
+            </div>
+            <button class="plnt-btn float-end" type="submit">Post Reply</button>
         </form>
     </div>
 </section>

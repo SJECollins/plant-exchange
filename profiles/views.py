@@ -1,3 +1,4 @@
+import cloudinary.uploader
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from django.views import View, generic

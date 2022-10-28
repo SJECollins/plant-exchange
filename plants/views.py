@@ -1,3 +1,5 @@
+import cloudinary.uploader
+
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import View, generic
 from django.views.generic.edit import CreateView, UpdateView

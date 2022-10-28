@@ -8,31 +8,62 @@
 
 <section class="container-fluid">
     <div class="col-12">
-        <p>Name {{ profile.name }}</p>
-        <p>Location: {{ profile.location }}</p>
-        <p>About {{profile.name}}: {{ profile.about_me|linebreaks }}</p>
-        <p>Interests: {{ profile.interested_in|linebreaks }}</p>
-        <p>User since: {{ profile.created_on }}</p>
-        <!-- Ratings based on avg num of ratings for users which are submitted when users are have received a plant? -->
-        <p>Reliability: {{ profile.rating }}</p>
-        {% if profile.user == request.user %}
-        <a href="{% url 'profiles:edit_profile' pk=profile.id %}">Update Your Profile</a>
-        {% endif %}
+        <h1 class="headings headings-bg text-center">{{ profile }}'s Profile</h1>
+        <div class="row d-flex justify-content-evenly">
+            <div class="col-sm-6 plant-card">
+                <table>
+                    <tr>
+                        <th>Name: </th>
+                        <td>{{ profile.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Location:</th>
+                        <td>{{ profile.location }}</td>
+                    </tr>
+                    <tr>
+                        <th class="align-top">About:</th>
+                        <td>{{ profile.about_me|linebreaks }}</td>
+                    </tr>
+                    <tr>
+                        <th>Interests:</th>
+                        <td>{{ profile.interested_in }}</td>
+                    </tr>
+                    <tr>
+                        <th>Reliability:</th>
+                        <td>{{ profile.rating }}</td>
+                    </tr>
+                </table>
+                <p class="little">User since: {{ profile.created_on }}</p>
+            </div>
+            <div class="col-sm-4 plant-card">
+                <ul>
+                    {% if profile.user == request.user %}
+                    <li class="list-space">
+                        <a class="plnt-links" href="{% url 'profiles:edit_profile' pk=profile.id %}">Update Your
+                            Profile</a>
+                    </li>
+                    <li class="list-space">
+                        <a class="plnt-links" href="{% url 'profiles:mailbox'%}">Mailbox</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% if profile.user == request.user %}
-    <a href="{% url 'profiles:mailbox'%}">Mailbox</a>
-    {% endif %}
 </section>
 <section class="container-fluid">
     <div class="col-12">
-        <h1>{{ profile }}'s Plants</h1>
-        {% for plant in plants %}
-        <a href="{% url 'plants:plant_detail' plant_id=plant.id %}">{{ plant }}</a>
-        <p>Posted on {{ plant.added_on }}</p>
-        {% empty %}
-        No plants!
-        {% endfor %}
-    </div>
+        <h2 class="headings headings-bg">{{ profile }}'s Plants</h2>
+        <div class="row">
+            {% for plant in plants %}
+            <div class="plant-card col-sm-6 col-md-4 col-lg-3">
+                <a class="plnt-links" href="{% url 'plants:plant_detail' plant_id=plant.id %}">{{ plant }}</a>
+                <p>Posted on {{ plant.added_on }}</p>
+                {% empty %}
+                No plants!
+                {% endfor %}
+            </div>
+        </div>
 </section>
 
 <!-- What to do if user hasn't created their profile yet! Maybe redirect to the create profile view when first logged in? -->

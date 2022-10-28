@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load cloudinary %}
 
 {% block title %}
 Post Plant 
@@ -19,7 +20,7 @@ Post Plant
             </div>
         </div>
         <div class="col-sm-10 mx-auto">
-        <form method="POST">
+        <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             <div class="form-col">
                 <div class="form-group col-sm-6 mx-auto mb-0">
