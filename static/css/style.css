@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&family=Josefin+Sans&family=Rubik&family=Zen+Antique+Soft&display=swap");
+
+:root {
+    --site-black: #191a19;
+    --site-white: #d8ddc4;
+    --site-beige: #c3caa4;
+    --site-dark-brown: #6c460e;
+    --site-med-brown: #996314;
+    --site-light-brown: #aa6c1f;
+    --site-dark-green: #0e6c17;
+    --site-med-green: #469c36;
+    --site-light-green: #5dc64d;
+}
+
+html {
+    height: 100%;
+}
+
+/* Font Styling */
+body {
+    font-family: "Rubik", sans-serif;
+    color: var(--site-black);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    background-color: var(--site-white);
+}
+
+.headings {
+    font-family: 'Zen Antique Soft', serif;
+    font-weight: 800;
+    margin: 0.25em 0;
+}
+
+.headings-big {
+    font-size: 2em;
+}
+
+.headings-sm {
+    font-size: 1.25em;
+}
+
+.little {
+    font-weight: 300;
+    font-size: 0.75em;
+}
+
+.edited {
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: italic;
+    font-size: 0.5em;
+}
+
+.deleted {
+    font-family: 'Electrolize', sans-serif;
+    font-style: italic;
+    font-size: 0.75em;
+}
+
+/* Link & Button Styling */
+
+button {
+    border: none;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar-links {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    color: var(--site-dark-green);
+    font-weight: 800;
+    margin: 1em;
+    border-radius: 4px;
+    transition: color .4s linear, box-shadow .8s linear;
+}
+
+.navbar-links:hover, .navbar-links:active {
+    box-shadow: inset 200px 0 0 0 var(--site-light-green), 0 4px 8px 0 var(--site-white);
+    color: var(--site-white);
+}
+
+.navbar-drop-link {
+    padding: 0;
+    margin: 0.25em auto;
+}
+
+.drop-menu {
+    padding: 1em;
+    background-color: var(--site-beige);
+}
+
+.plnt-links {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--site-dark-green);
+    border: none;
+    /* transition: all .4s ease-in-out; */
+}
+
+.plnt-links:hover, .plnt-links:active {
+    color: var(--site-med-green);
+    border-bottom: 2px solid var(--site-med-brown);
+}
+
+/* Spacing */
+
+/* Image styling */
+
+.pics {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Scrollbars */
+
+/* Navbar */
+
+#navbar {
+    margin-bottom: 1em;
+    background-color: var(--site-beige);
+    color: var(--site-dark-green);
+    box-shadow: 0 2px 8px 0 var(--site-light-brown);
+}
+
+/* Plants Styling */
+
+.plant-card {
+    padding: 1em;
+    border: 2px solid var(--site-dark-brown);
+    border-radius: 10px;
+}
+
+
+/* Forums Styling */
+
+/* Footer */
+
+footer {
+    background-color: var(--site-beige);
+    color: var(--site-dark-green);
+}

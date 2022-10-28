@@ -19,7 +19,9 @@
         <a href="{% url 'profiles:edit_profile' pk=profile.id %}">Update Your Profile</a>
         {% endif %}
     </div>
+    {% if profile.user == request.user %}
     <a href="{% url 'profiles:mailbox'%}">Mailbox</a>
+    {% endif %}
 </section>
 <section class="container-fluid">
     <div class="col-12">

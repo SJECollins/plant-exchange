@@ -1,47 +1,54 @@
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Plant Exchange</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<header>
+  <nav id="navbar" class="navbar navbar-expand-lg">
+    <div class="container-sm d-flex justify-content-between">
+      <a class="navbar-brand navbar-links" href="{% url 'plants:home' %}">Plant Exchange</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'plants:home' %}">Home</a>
+            <a class="nav-link navbar-links" aria-current="page" href="{% url 'plants:home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'plants:exchange' %}">Exchange</a>
+            <a class="nav-link navbar-links" href="{% url 'plants:exchange' %}">Exchange</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'forums:forum_list' %}">Discussions</a>
+            <a class="nav-link navbar-links" href="{% url 'forums:forum_list' %}">Discussions</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link navbar-links dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Profile / Logout
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'profiles:profile' user_id=request.user.id %}">My Profile</a></li>
-              <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
+            <ul class="dropdown-menu drop-menu">
+              <li><a class="dropdown-item navbar-links navbar-drop-link"
+                  href="{% url 'profiles:profile' user_id=request.user.id %}">My Profile</a></li>
+              <li><a class="dropdown-item navbar-links navbar-drop-link" href="{% url 'account_logout' %}">Logout</a>
+              </li>
             </ul>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'plants:home' %}">Home</a>
+            <a class="nav-link navbar-links" aria-current="page" href="{% url 'plants:home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'plants:exchange' %}">Exchange</a>
+            <a class="nav-link navbar-links" href="{% url 'plants:exchange' %}">Exchange</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'forums:forum_list' %}">Discussions</a>
+            <a class="nav-link navbar-links" href="{% url 'forums:forum_list' %}">Discussions</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link navbar-links dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Login / Register
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'account_login' %}">Login</a></li>
-              <li><a class="dropdown-item" href="{% url 'account_signup' %}">Signup</a></li>
+            <ul class="dropdown-menu drop-menu">
+              <li><a class="dropdown-item navbar-links navbar-drop-link" href="{% url 'account_login' %}">Login</a></li>
+              <li><a class="dropdown-item navbar-links navbar-drop-link" href="{% url 'account_signup' %}">Signup</a>
+              </li>
             </ul>
           </li>
           {% endif %}
@@ -49,3 +56,4 @@
       </div>
     </div>
   </nav>
+</header>
