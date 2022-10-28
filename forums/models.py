@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from ckeditor.fields import RichTextField
 
 
 class Forum(models.Model):
@@ -19,7 +20,7 @@ class Discussion(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='discussions')
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=80)
-    content = models.CharField(max_length=280)
+    content = RichTextField()
     image = CloudinaryField('image', null=True, blank=True)
     created_on = models.DateField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
@@ -36,7 +37,7 @@ class Discussion(models.Model):
 class Post(models.Model):
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name='posts')
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    content = models.TextField()
+    content = RichTextField()
     image = CloudinaryField('image', null=True, blank=True)
     deleted = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)

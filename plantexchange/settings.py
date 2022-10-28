@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
 
+    # ckeditor for RTF
+    'ckeditor',
+
     # apps
     'profiles',
     'plants',
