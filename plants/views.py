@@ -28,7 +28,7 @@ class IndexView(View):
 
 class PlantList(generic.ListView):
     model = Plant
-    queryset = Plant.objects.all().order_by('-status', '-added_on')
+    queryset = Plant.objects.all().order_by('status', '-added_on')
     template_name = 'plants/exchange.html'
     paginate_by = 10
 

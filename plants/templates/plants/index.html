@@ -43,7 +43,7 @@ Home
                 <div>
                     <h2 class="headings headings-sm">Latest Blog Post:</h2>
                     <div class="plant-card text-center">
-                        <p>{{ blog_post.title }} on {{ blog_post.created_on|date:"d M Y" }}</p>
+                        <p><span class="headings headings-sm">{{ blog_post.title }}</span> on {{ blog_post.created_on|date:"d M Y" }}</p>
                         <p>{{ blog_post.excerpt }}</p>
                         <a class="plnt-links" href="{% url 'plantblog:post' post_id=blog_post.id %}">Read Now</a>
                     </div>

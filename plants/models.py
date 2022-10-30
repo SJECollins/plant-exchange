@@ -31,7 +31,7 @@ class Plant(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
 
     class Meta:
-        ordering = ['-added_on', 'status']
+        ordering = ['-added_on',]
         get_latest_by = ['added_on']
 
     def __str__(self):

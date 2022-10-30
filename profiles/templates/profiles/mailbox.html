@@ -33,8 +33,8 @@ Your Messages
                     </div>
                     {% endif %}
                 </div>
+                <hr>
                 {% endif %}
-            <hr>
             {% empty %}
             <p>No messages!</p>
             {% endfor %}     
@@ -52,8 +52,8 @@ Your Messages
                         <a class="plnt-btn" href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
                     </div>
                 </div>
+                <hr>
                 {% endif %}
-            <hr>
             {% empty %}
             <p>No messages!</p>
             {% endfor %}

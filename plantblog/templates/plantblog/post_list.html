@@ -28,8 +28,8 @@ Blog
                                 </div>                                
                             </div>
                             <div>
-                                <h2 class="card-title">{{ blogpost.title }}</h2>
-                                <p class="card-text">{{ blogpost.excerpt }}</p>
+                                <h2 class="headings headings-sm">{{ blogpost.title }}</h2>
+                                <p>{{ blogpost.excerpt }}</p>
                                 <a class="plnt-links" href="{% url 'plantblog:post' post_id=blogpost.id %}" class="blogpost-link">Read</a>
                                 <hr>
                                 <p>&hearts; {{ blogpost.number_of_likes }}</p>

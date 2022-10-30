@@ -101,6 +101,7 @@ a {
     display: inline-block;
     padding: 0.25rem 0.5rem;
     color: var(--site-dark-green);
+    background-color: var(--site-beige);
     font-weight: 800;
     margin: 1em;
     border-radius: 4px;
@@ -109,6 +110,7 @@ a {
 
 .navbar-links:hover, .navbar-links:active {
     box-shadow: inset 200px 0 0 0 var(--site-light-green), 0 4px 8px 0 var(--site-white);
+    background-color: var(--site-beige);
     color: var(--site-white);
 }
 
@@ -186,17 +188,17 @@ th, td {
 }
 
 .mailbxs::-webkit-scrollbar-track {
-box-shadow: inset 0 0 4px var(--site-med-brown); 
-border-radius: 2px;
+    box-shadow: inset 0 0 4px var(--site-med-brown); 
+    border-radius: 2px;
 }
 
 .mailbxs::-webkit-scrollbar-thumb {
-background: var(--site-light-green); 
-border-radius: 4px;
+    background: var(--site-light-green); 
+    border-radius: 4px;
 }
 
 .mailbxs::-webkit-scrollbar-thumb:hover {
-background: var(--site-dark-green); 
+    background: var(--site-dark-green); 
 }
 
 /* Navbar */
@@ -231,13 +233,15 @@ background: var(--site-dark-green);
     margin: 0 auto;
     overflow-y: scroll;
 }
-/* 
-textarea {
-    max-width:80vw;
-    height: 10em;
-    border-radius: 10px;
-    overflow-y: scroll;
-} */
+
+.side-brdr {
+    border-right: 2px solid var(--site-dark-brown);
+}
+
+.btm-brdr {
+    border-top: 2px solid var(--site-dark-brown);
+
+}
 
 /* Footer */
 
