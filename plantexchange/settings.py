@@ -57,10 +57,14 @@ INSTALLED_APPS = [
     # widget tweaks
     'widget_tweaks',
 
+    # summernote
+    'django_summernote',
+
     # apps
     'profiles',
     'plants',
     'forums',
+    'plantblog',
 ]
 
 MIDDLEWARE = [

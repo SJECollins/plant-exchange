@@ -19,7 +19,7 @@ Plants
         </div>
         <div class="row">
             {% for plant in plant_list %}
-            <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="col-md-6">
                 <div class="plant-card">
                     <div>
                         <h2 class="headings headings-sm">{{ plant.title }}</h2>
@@ -45,7 +45,7 @@ Plants
                     </div>
                 </div>
             </div>
-            {% if forloop.counter|divisibleby:3 %}
+            {% if forloop.counter|divisibleby:2 %}
         </div>
     </div>
 
