@@ -7,9 +7,9 @@ Message from {{ message.sender }}
 {% block content %}
 
 <section class="container-fluid">
-    <a href="{% url 'profiles:mailbox' %}">Back to mailbox</a>
+    <a class="plnt-links" href="{% url 'profiles:mailbox' %}">Back to mailbox</a>
     <div class="col-12">
-        <div class="card">
+        <div class="plant-card">
             <div class="msg-subject">
                 <p>{{ message }}</p>
             </div>
@@ -20,14 +20,14 @@ Message from {{ message.sender }}
                 <p>Sent by {{ message.sender }} on {{ message.created_on }}</p>
             </div>
         </div>
-        <div class="card">
-            <p><strong>Reply</strong></p>
+        <div>
+            <p><strong>Reply below:</strong></p>
         </div>
         <div>
             <form method="POST">
                 {% csrf_token %}
                 {{ message_form|crispy }}
-                <button type="submit">Send</button>
+                <button class="plnt-btn" type="submit">Send</button>
             </form>
         </div>
     </div>

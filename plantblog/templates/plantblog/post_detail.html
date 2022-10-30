@@ -88,10 +88,10 @@
                 <div class="comments" style="padding: 10px;">
                     <p class="font-weight-bold">
                         <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
-                        {{ comment.author }}
-                        <span class=" text-muted font-weight-normal">
+                        {{ comment.author }},
+                        <span>
                             <!-- The comment's created date goes here -->
-                            {{ comment.created_on }}
+                            {{ comment.created_on|date:'d M y' }}
                         </span> wrote:
                     </p>
                     <!-- The body of the comment goes before the | -->
@@ -104,9 +104,8 @@
         <div class="col-md-4 plant-card mb-4  mt-3 ">
             <div>
                 {% if user.is_authenticated %}
-
                 <h3>Leave a comment:</h3>
-                <p>Posting as: {{ user }}</p>
+                <p>Posting as: {{ user.profile.name }}</p>
                 <form method="post" style="margin-top: 1.3em;">
                     {% csrf_token %}
                     {{ comment_form | crispy }}

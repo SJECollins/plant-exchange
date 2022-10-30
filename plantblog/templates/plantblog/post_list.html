@@ -11,7 +11,7 @@ Blog
     <div class="col">
         <div class="row">
             <div class="col-12 mt-3 left">
-                <div class="row">
+                <div class="row d-flex justify-content-evenly">
                     {% for blogpost in blogpost_list %}
                     <div class="col-md-4">
                         <div class="plant-card mb-4">
@@ -28,10 +28,9 @@ Blog
                                 </div>                                
                             </div>
                             <div>
-                                <a class="plnt-links" href="{% url 'plantblog:post' post_id=blogpost.id %}" class="blogpost-link">
-                                    <h2 class="card-title">{{ blogpost.title }}</h2>
-                                    <p class="card-text">{{ blogpost.excerpt }}</p>
-                                </a>
+                                <h2 class="card-title">{{ blogpost.title }}</h2>
+                                <p class="card-text">{{ blogpost.excerpt }}</p>
+                                <a class="plnt-links" href="{% url 'plantblog:post' post_id=blogpost.id %}" class="blogpost-link">Read</a>
                                 <hr>
                                 <p>&hearts; {{ blogpost.number_of_likes }}</p>
                             </div>
@@ -39,7 +38,7 @@ Blog
                     </div>
                         {% if forloop.counter|divisibleby:2 %}
                 </div>
-                <div class="row">
+                <div class="row d-flex justify-content-evenly">
                     {% endif %}
                     {% endfor %}
                 </div>

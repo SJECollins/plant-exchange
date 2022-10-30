@@ -8,42 +8,56 @@ Your Messages
 
 <section class="container-fluid">
     <div class="col-12">
-        <h1>Inbox</h1>
-        {% for message in messages %}
-            {% if message.receiver == request.user %}
-            <div class="card">
-                <div class="msg-subject">
-                    <p>{{ message }}</p>
-                </div>
-                <div>
-                    <a href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
-                </div>
-                {% if not message.read %}
-                <div>
-                    <p>Unread</p>
+
+            <h1>Inbox</h1>
+            <div class="plant-card mailbxs">
+            {% for message in messages %}
+                {% if message.receiver == request.user %}
+                <div class="row">
+                    <div class="col d-flex justify-content-between">
+                        <div class="msg-subject">
+                            <p>{{ message }}</p>
+                        </div>
+                        <div>
+                            <a class="plnt-btn" href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
+                        </div>
+                    </div>
+                    {% if not message.read %}
+                    <div class="msg-status">
+                        <p>Unread</p>
+                    </div>
+                    {% endif %}
+                    {% if message.replied %}
+                    <div class="msg-status">
+                        <p>Replied</p>
+                    </div>
+                    {% endif %}
                 </div>
                 {% endif %}
-                {% if message.replied %}
-                <div>
-                    <p>Replied</p>
+            <hr>
+            {% empty %}
+            <p>No messages!</p>
+            {% endfor %}     
+            </div>
+<hr>
+            <h1>Sent</h1>
+            <div class="plant-card mailbxs">       
+            {% for message in messages %}
+                {% if message.sender == request.user %}
+                <div class="col d-flex justify-content-between">
+                    <div class="msg-subject">
+                        <p>Message to {{ message.receiver }} about {{ message.ad }}</p>
+                    </div>
+                    <div>
+                        <a class="plnt-btn" href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
+                    </div>
                 </div>
                 {% endif %}
+            <hr>
+            {% empty %}
+            <p>No messages!</p>
+            {% endfor %}
             </div>
-            {% endif %}
-        {% endfor %}     
-        <h1>Sent</h1>       
-        {% for message in messages %}
-            {% if message.sender == request.user %}
-            <div class="card">
-                <div class="msg-subject">
-                    <p>Message to {{ message.receiver }} about {{ message.ad }}</p>
-                </div>
-                <div>
-                    <a href="{% url 'profiles:message' msg_id=message.id %}">Read</a>
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
     </div>
 
 </section>

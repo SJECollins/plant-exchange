@@ -17,10 +17,10 @@ Plants
                 <a class="plnt-btn" href="{% url 'plants:add_plant' %}">Post a plant</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row d-flex justify-content-evenly">
             {% for plant in plant_list %}
-            <div class="col-md-6">
-                <div class="plant-card">
+            <div class="col-md-5">
+                <div class="plant-card text-center">
                     <div>
                         <h2 class="headings headings-sm">{{ plant.title }}</h2>
                         <p>From: <a class="plnt-links" href="{% url 'profiles:profile' user_id=plant.owner.id %}">
@@ -47,11 +47,10 @@ Plants
             </div>
             {% if forloop.counter|divisibleby:2 %}
         </div>
-    </div>
-
-    <div class="row">
-        {% endif %}
-        {% endfor %}
+        <div class="row d-flex justify-content-evenly">
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">

@@ -45,25 +45,31 @@
                     <li class="list-space">
                         <a class="plnt-links" href="{% url 'profiles:mailbox'%}">Mailbox</a>
                     </li>
+                    {% endif %}
                 </ul>
-                {% endif %}
+                
             </div>
         </div>
     </div>
 </section>
 <section class="container-fluid">
+    <h2 class="headings headings-bg text-center">{{ profile }}'s Plants</h2>
     <div class="col-12">
-        <h2 class="headings headings-bg">{{ profile }}'s Plants</h2>
         <div class="row">
             {% for plant in plants %}
-            <div class="plant-card col-sm-6 col-md-4 col-lg-3">
+            <div class="plant-card col-3">
                 <a class="plnt-links" href="{% url 'plants:plant_detail' plant_id=plant.id %}">{{ plant }}</a>
                 <p>Posted on {{ plant.added_on }}</p>
-                {% empty %}
-                No plants!
-                {% endfor %}
             </div>
+            {% if forloop.counter|divisibleby:4 %}
         </div>
+        <div class="row">
+                {% endif %}
+            {% empty %}
+                No plants! 
+            {% endfor %}
+        </div>
+    </div>
 </section>
 
 <!-- What to do if user hasn't created their profile yet! Maybe redirect to the create profile view when first logged in? -->

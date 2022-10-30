@@ -52,7 +52,7 @@ class PostDetail(View):
         comment_form = CommentForm(data=request.POST)
 
         if comment_form.is_valid():
-            comment_form.instance.name = request.user.username
+            comment_form.instance.author = request.user.profile.name
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
