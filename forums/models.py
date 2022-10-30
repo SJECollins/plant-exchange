@@ -28,6 +28,7 @@ class Discussion(models.Model):
 
     class Meta:
         ordering = ['is_open']
+        get_latest_by = ['created_on']
     
     def __str__(self):
         return self.title
@@ -44,6 +45,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['created_on']
+        get_latest_by = ['created_on']
 
     def __str__(self):
         return self.content

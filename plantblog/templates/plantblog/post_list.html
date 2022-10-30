@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
 Blog
 {% endblock title %}
@@ -10,29 +12,28 @@ Blog
         <div class="row">
             <div class="col-12 mt-3 left">
                 <div class="row">
-                    {% for post in post_list %}
+                    {% for blogpost in blogpost_list %}
                     <div class="col-md-4">
                         <div class="plant-card mb-4">
                             <div>
                                 <div class="image-container">
-                                    {% if "placeholder" in post.featured_image.url %}
+                                    {% if "placeholder" in blogpost.image.url %}
                                     <img class="pics" src="{% static 'images/monstleaf.webp' %}">
                                     {% else %}
-                                        <img class="card-img-top" src="{{ post.featured_image.url }}">
+                                        <img class="card-img-top" src="{{ blogpost.image.url }}">
                                     {% endif %}
                                         <div class="image-flash">
-                                            <p class="author">Written by {{ post.author }} on {{ post.created_on }}</p>
+                                            <p class="author">Written by {{ blogpost.author }} on {{ blogpost.created_on|date:'d M Y' }}</p>
                                         </div>
                                 </div>                                
                             </div>
                             <div>
-
-                                <a href="{% url 'post_detail' post.slug %}" class="post-link">
-                                    <h2 class="card-title">{{ post.title }}</h2>
-                                    <p class="card-text">{{ post.excerpt }}</p>
+                                <a class="plnt-links" href="{% url 'plantblog:post' post_id=blogpost.id %}" class="blogpost-link">
+                                    <h2 class="card-title">{{ blogpost.title }}</h2>
+                                    <p class="card-text">{{ blogpost.excerpt }}</p>
                                 </a>
                                 <hr>
-                                <p>&hearts; {{ post.number_of_likes }}</p>
+                                <p>&hearts; {{ blogpost.number_of_likes }}</p>
                             </div>
                         </div>
                     </div>

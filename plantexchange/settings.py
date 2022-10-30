@@ -129,7 +129,7 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-CSRF_TRUSTED_ORIGINS=['https://8000-sjecollins-plantexchang-5sm87tlno19.ws-eu72.gitpod.io']
+CSRF_TRUSTED_ORIGINS=['https://8000-sjecollins-plantexchang-5sm87tlno19.ws-eu73.gitpod.io']
 
 CSRF_COOKIE_SECURE=False
 

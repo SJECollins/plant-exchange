@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Home
@@ -6,9 +7,68 @@ Home
 
 {% block content %}
 <section class="container-fluid">
-    <div class="col">
-        You are home
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="text-center">
+                    <h1 class="headings">The Exchange</h1>
+                    <p>Visit the plant exchange to check out the latest plants people are offering up to trade.</p>
+                    <a class="plnt-links" href="{% url 'plants:exchange' %}">Visit</a>
+                </div>
+                <div>
+                    <h2 class="headings headings-sm">Latest Plant:</h2>
+                    <div class="plant-card text-center">
+                        <p>{{ ad.owner }} added {{ ad.title }}</p>
+                        {% if "placeholder" in ad.image.url %}
+                        <img class="card-img-top pics" src="{% static 'images/monstleaf.webp' %}">
+                        <p class="text-center">No image available</p>
+                        {% else %}
+                        <img class="card-img-top pics" src="{{ ad.image.url }}">
+                        {% endif %}
+                        {% if ad.status == 0 %}
+                        <p class="status available text-center">Available</p>
+                        {% else %}
+                        <p class="status taken text-center">Taken</p>
+                        {% endif %}
+                        <a class="plnt-links" href="{% url 'plants:plant_detail' plant_id=ad.id %}">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <h1 class="headings">The Blog</h1>
+                    <p>Visit our plant blog for tips and advice on plant care, announcements for upcoming plant events, and news about what's going on at The Plant Exchange.</p>
+                    <a class="plnt-links" href="{% url 'plantblog:blog' %}">Visit</a>
+                </div>
+                <div>
+                    <h2 class="headings headings-sm">Latest Blog Post:</h2>
+                    <div class="plant-card text-center">
+                        <p>{{ blog_post.title }} on {{ blog_post.created_on|date:"d M Y" }}</p>
+                        <p>{{ blog_post.excerpt }}</p>
+                        <a class="plnt-links" href="{% url 'plantblog:post' post_id=blog_post.id %}">Read Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center">
+                <h1 class="headings">The Discussion Forums</h1>
+                <p>Head over to our discussion forums to join in with the community. Share your favourite tips and tricks for plant care or share some pictures of your favourite plants.</p>
+                <a class="plnt-links" href="{% url 'plantblog:blog' %}">Visit</a>
+            </div>
+            <div>
+                <h2 class="headings headings-sm">Latest Topic:</h2>
+                <div class="plant-card">
+                    <p>{{ discussion.creator }} posted: <a class="plnt-links" href="{% url 'forums:view_topic' topic_id=discussion.id %}">{{ discussion.title }}</a></p>
+                </div>
+            </div>
+            <div>
+                <h2 class="headings headings-sm">Latest Reply:</h2>
+                <div class="plant-card">
+                    <p>{{ post.creator}} posted: "{{ post.content }}" in <a class="plnt-links" href="{% url 'forums:view_topic' topic_id=discussion.id %}"> {{ post.discussion }}</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-
 </section>
 {% endblock content %}

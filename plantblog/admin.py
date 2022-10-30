@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import BlogPost, Comment
 from django_summernote.admin import SummernoteModelAdmin
 
 
-@admin.register(Post)
+@admin.register(BlogPost)
 class PostAdmin(SummernoteModelAdmin):
     list_filter = ('status', 'created_on')
     list_display = ('title','status', 'created_on')
@@ -13,6 +13,6 @@ class PostAdmin(SummernoteModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content', 'post', 'created_on', 'approved')
-    list_filter = ('approved', 'created_on')
-    search_fields = ('name', 'content')
+    list_display = ('author', 'content', 'post', 'created_on',)
+    list_filter = ('created_on',)
+    search_fields = ('author', 'content')

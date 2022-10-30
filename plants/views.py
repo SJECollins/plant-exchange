@@ -4,14 +4,26 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import View, generic
 from django.views.generic.edit import CreateView, UpdateView
 
+from plantblog.models import BlogPost
+from forums.models import Discussion, Post
 from .models import Plant, Comment
 from .forms import CommentForm
 
 
 class IndexView(View):
     def get(self, request):
+        blog_post = BlogPost.objects.latest()
+        discussion = Discussion.objects.latest()
+        post = Post.objects.latest()
+        ad = Plant.objects.latest()
         template_name = 'plants/index.html'
-        return render(request, template_name)
+        context = {
+            'blog_post': blog_post,
+            'discussion': discussion,
+            'post': post,
+            'ad': ad,
+        }
+        return render(request, template_name, context)
 
 
 class PlantList(generic.ListView):

@@ -32,6 +32,7 @@ class Plant(models.Model):
 
     class Meta:
         ordering = ['-added_on', 'status']
+        get_latest_by = ['added_on']
 
     def __str__(self):
         return self.title
