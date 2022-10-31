@@ -10,9 +10,6 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link navbar-links" aria-current="page" href="{% url 'plants:home' %}">Home</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link navbar-links" href="{% url 'plants:exchange' %}">Exchange</a>
           </li>
           <li class="nav-item">
@@ -20,6 +17,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link navbar-links" href="{% url 'forums:forum_list' %}">Discussions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-links" href="{% url 'profiles:mailbox' %}">Mailbox{% if inbox_messages > 0 %}<span class="new-msg little">{{ inbox_messages }}</span>{% endif %}</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link navbar-links dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -34,9 +34,6 @@
             </ul>
           </li>
           {% else %}
-          <li class="nav-item">
-            <a class="nav-link navbar-links" aria-current="page" href="{% url 'plants:home' %}">Home</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link navbar-links" href="{% url 'plants:exchange' %}">Exchange</a>
           </li>

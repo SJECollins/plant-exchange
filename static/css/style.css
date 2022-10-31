@@ -78,6 +78,13 @@ body {
     font-weight: 700;
 }
 
+.new-msg {
+    padding: 0.25em 0.5em;
+    color: var(--site-whiter);
+    background-color: var(--site-med-brown);
+    border-radius: 50%;
+}
+
 /* Link & Button Styling */
 
 button {
@@ -175,9 +182,8 @@ th, td {
 /* Image styling */
 
 .pics {
-    max-width: 360px;
-    width: 100%;
-    height: auto;
+    width: auto;
+    max-height: 360px;
     border-radius: 8px;
 }
 
